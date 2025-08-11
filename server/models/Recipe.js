@@ -4,8 +4,9 @@ const RecipeSchema = new mongoose.Schema(
   {
     userId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User", // assumes your User model is named 'User'
+      ref: "User",
       required: true,
+      index: true, 
     },
     title: { type: String },
     time: String,
@@ -19,6 +20,15 @@ const RecipeSchema = new mongoose.Schema(
   },
   { collection: "recipes" }
 );
+
+
+RecipeSchema.index({
+  title: "text",
+  ingredients: "text",
+  mealType: "text",
+  dietType: "text",
+  allergyInfo: "text",
+});
 
 const Recipe = mongoose.model("Recipe", RecipeSchema);
 
