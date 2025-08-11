@@ -7,15 +7,7 @@ export const searchrecipe = async (req, res) => {
   try {
     const recipes = await Recipe.find({
       userId,
-      $or: [
-        { title: { $regex: query, $options: "i" } },
-        { time: { $regex: query, $options: "i" } },
-        { calories: { $regex: query, $options: "i" } },
-        { ingredients: { $regex: query, $options: "i" } },
-        { mealType: { $regex: query, $options: "i" } },
-        { dietType: { $regex: query, $options: "i" } },
-        { allergyInfo: { $regex: query, $options: "i" } },
-      ],
+     $text: { $search: query },
     });
 
     if (!recipes) {
